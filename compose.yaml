@@ -1,19 +1,21 @@
 version: "3.8"
 
 services:
-  #`postgres:` определяет сервис для базы данных PostgreSQL в файле Docker Compose.
+  #Это конфигурация Docker Compose для службы базы данных PostgreSQL.
   postgres:
     container_name: postgres
+    deploy:
+      restart_policy:
+        condition: always
+        delay: 5s
     env_file: postgres.env
-    image: postgres:alpine
+    image: postgres:15-alpine
     labels:
       com.centurylinklabs.watchtower.enable: "true"
       traefik.enable: "false"
-    ports:
-      - "5432:5432"
     shm_size: 256mb
     volumes:
-      - "./postgres/data:/var/lib/postgresql/data"
+      - "/mnt/docker-volumes/db/postgres/data:/var/lib/postgresql/data"
 
 networks:
   default:
