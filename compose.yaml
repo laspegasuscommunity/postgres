@@ -18,6 +18,6 @@ services:
       - "/mnt/docker-volumes/db/postgres/data:/var/lib/postgresql/data"
 
 networks:
-  default:
+  external:
     external: true
     name: $NETWORK
